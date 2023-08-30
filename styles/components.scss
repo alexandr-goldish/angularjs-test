@@ -1,0 +1,89 @@
+.user-form {
+    width: 0;
+    height: 100%;
+    overflow: hidden auto;
+    transition: .5s;
+
+    &.visible {
+        width: 584px;
+        max-width: 50vw;
+        margin-left: 16px;
+    }
+
+    &_container {
+        padding: 26px;
+        width: 584px;
+        box-sizing: border-box;
+
+        &_header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 26px;
+
+            &_title {
+                color: var(--text-color);
+                font-size: var(--font-size-16);
+                font-weight: bold;
+            }
+
+            &_close {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: transparent;
+                width: 28px;
+                height: 28px;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+                transition: var(--base-transition);
+
+                &:hover {
+                    background-color: #f5f5f5;
+                }
+            }
+        }
+
+        form, form label {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        form {
+            gap: 16px;
+            align-items: center;
+
+            button {
+                width: 120px;
+            }
+
+            .email-input {
+                position: relative;
+
+                &::before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    left: 16px;
+                    bottom: 14px;
+                    width: 24px;
+                    height: 24px;
+                    background-image: url('../images/email.svg');
+                }
+
+                > input {
+                    padding-left: 46px;
+                    width: 100%;
+                }
+            }
+        }
+
+        &_form-btns {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+    }
+}

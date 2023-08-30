@@ -1,0 +1,101 @@
+<div class="card user-form" ng-class="{'visible': isFormVisible}">
+    <div class="user-form_container">
+        <div class="user-form_container_header">
+            <span class="user-form_container_header_title">{{ formTitle }}</span>
+
+            <button class="user-form_container_header_close" ng-click="closeForm()">
+                <img src="../../images/close-icon.svg" alt="Close icon">
+            </button>
+        </div>
+
+        <form name="userForm">
+            <label for="userName" class="form-control">
+                Username*
+                <input id="userName" name="userNameField" type="text" ng-model="userData.userName" unique-user-name
+                       required>
+
+                <div ng-messages="userForm.userNameField.$error" class="field-error-messages"
+                     ng-show="userForm.userNameField.$dirty">
+                    <div ng-message="uniqueUserName">Username must be unique</div>
+                    <required ng-message="required"/>
+                </div>
+            </label>
+
+            <label for="firstName" class="form-control">
+                First name*
+                <input id="firstName" name="firstNameField" type="text" ng-model="userData.firstName" required>
+
+                <div ng-messages="userForm.firstNameField.$error" class="field-error-messages"
+                     ng-show="userForm.firstNameField.$dirty">
+                    <required ng-message="required"/>
+                </div>
+            </label>
+
+            <label for="lastName" class="form-control">
+                Last name*
+                <input id="lastName" name="lastNameField" type="text" ng-model="userData.lastName" required>
+
+                <div ng-messages="userForm.lastNameField.$error" class="field-error-messages"
+                     ng-show="userForm.lastNameField.$dirty">
+                    <required ng-message="required"/>
+                </div>
+            </label>
+
+            <label for="email" class="form-control">
+                Email*
+                <div class="email-input">
+                    <input id="email" name="emailField" type="email" ng-model="userData.email" required>
+                </div>
+
+                <div ng-messages="userForm.emailField.$error" class="field-error-messages"
+                     ng-show="userForm.emailField.$dirty">
+                    <div ng-message="email">Invalid email</div>
+                    <required ng-message="required"/>
+                </div>
+            </label>
+
+            <label for="userType" class="form-control">
+                Type* {{ typeList }}
+                <select id="userType" name="userTypeField" ng-model="userData.userType" required
+                        ng-options="type for type in userTypes"></select>
+
+                <div ng-messages="userForm.userTypeField.$error" class="field-error-messages"
+                     ng-show="userForm.userTypeField.$dirty">
+                    <required ng-message="required"/>
+                </div>
+            </label>
+
+            <label for="password" class="form-control">
+                Password*
+                <input id="password" name="passwordField" type="password" ng-model="userData.password" ng-change="checkPasswords()" password-validation required>
+
+                <div ng-messages="userForm.passwordField.$error" class="field-error-messages"
+                     ng-show="userForm.passwordField.$dirty">
+                    <span ng-message="passwordValidation">The password must be at least 8 characters and have 1 uppercase and 1 lowercase letter</span>
+                    <required ng-message="required"/>
+                </div>
+            </label>
+
+            <label for="repeatPassword" class="form-control">
+                Repeat password*
+                <input id="repeatPassword" name="repeatPasswordField" type="password" ng-model="userData.repeatPassword"
+                       match-password="userData.password" required>
+
+                <div ng-messages="userForm.repeatPasswordField.$error" class="field-error-messages"
+                     ng-show="userForm.repeatPasswordField.$dirty">
+                    <div ng-message="matchPassword">Password mismatch</div>
+                    <required ng-message="required"/>
+                </div>
+            </label>
+
+            <div class="user-form_container_form-btns" ng-if="isEditing">
+                <button class="btn btn-danger" type="button" ng-click="deleteUser()" ng-disabled="loading">Delete</button>
+                <button class="btn" type="button" ng-disabled="!userForm.$dirty || userForm.$invalid || loading" ng-click="changeUser()">Save</button>
+            </div>
+
+            <button class="btn create" type="button" ng-if="!isEditing" ng-disabled="!userForm.$dirty || userForm.$invalid || loading" ng-click="addUser()">Create</button>
+        </form>
+    </div>
+</div>
+
+<toast message="toastMessage" show="showToast" type="toastClass"></toast>
